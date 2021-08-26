@@ -80,46 +80,63 @@ dim(database)
 # Primeiras 6 linhas de uma tabela
 head(database)
 
+# Primeiras linhas de uma tabela (Determinar quantas linha)
+head(database, 15)
+
 # Últimas 6 linhas de uma tabela
 tail(database)
 
+# Últimas linhas de uma tabela (Determinar quantas linha)
+tail(database, 20)
+
 # Retorna algumas informações sobre a base
 
-summary(database)
+summary(database) # Estatísticas descritivas e outros detalhes
 
+# Dá uma noção do tipo de dados que há na base, e uma amostra desses dados
 str(database)
 
-# CONTINUAR DAQUI
 ## Exercícios 02 ---------------------------------------------------------------
 # Use as funções que apresentamos agora para descobrir:
 
 # a) Quantos voos a base que carregamos referente à fevereiro
 # (base_de_dados_fev) apresenta? (Dica: cada voo é apresentado em uma linha)
 
-nrow(voos_de_fevereiro)
+nrow(databaseFev)
 
 # b) Qual é a dimensão do data.frame base_de_dados_fev? E o que significa?
 
-dim(voos_de_fevereiro)
+dim(databaseFev)
 
 # c) Considerando os meses de Janeiro e Fevereiro, em qual mês a distância
 # total voada foi maior?
 
-- sum(base_de_dados$distancia) + sum(voos_de_fevereiro$distancia)
+distJan <- sum(database$distancia)
+distFev <- sum(databaseFev$distancia)
+if (distFev > distJan){
+    msg <- paste0("Fevereiro voou ", distFev)
+    print(msg)
+}
+if (distJan > distFev){
+    msg <- paste0("Janeiro voou ", distJan)
+    print(msg)
+}
+if (distJan == distFev){
+    msg <- paste0("Mesma distancia ", distJan, " = ", distFev)
+    print(msg)
+}
 
-# Datas no R ------------
+# Datas no R -------------------------------------------------------------------
 
 # Datas e horas tem uma classe diferente no R, específica para isso!
 
-class(base_de_dados$data_hora)
+class(database$data_hora)
 
-base_de_dados$data_hora
+database$data_hora
 
-# função para transformar em data: neste caso, perderemos
-# a informação sobre a hora
+# função para transformar em data: assim, perderemos informação sobre a hora
 
-as.Date(base_de_dados$data_hora)
-
+as.Date(database$data_hora)
 
 # também podemos converter um texto em formato data!
 
@@ -130,8 +147,8 @@ nascimento_data <- as.Date(nascimento_texto)
 class(nascimento_data)
 
 
-# e datas formatadas de outra forma?
-nascimento_texto_br <- c("15-02-1993")
+# Datas formatadas de outra forma?
+nascimento_texto_br <- c("18-06-1999")
 
 as.Date(nascimento_texto_br) # Resultado incorreto!
 
@@ -146,13 +163,12 @@ class(nascimento_data_br)
 
 Sys.Date()
 
-# Podemos fazer operações matemáticas com datas
+# Podemos fazer operações matemáticas com datas!!! -----------------------------
 
 dias_desde_o_nascimento <- Sys.Date() - nascimento_data_br
 
 
-# Função Sys.time() informa a data e hora de hoje, 
-# além do fuso horário utilizado
+# Função Sys.time() informa a data e hora de hoje, e fuso horário utilizado
 
 hoje <- Sys.time()
 
@@ -161,9 +177,7 @@ class(hoje)
 as.numeric(hoje) # segundos desde o dia 01 de janeiro de 1970
 
 
-
-# Como criar um data.frame? -------------------
-
+# Como criar um data.frame? ----------------------------------------------------
 # A função data.frame() é uma forma de criar um data.frame:
 
 amostra_avioes <- data.frame(

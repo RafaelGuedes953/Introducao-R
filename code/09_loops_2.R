@@ -20,16 +20,13 @@ for(i in 1:30){
     
 }
 
-# em cada passo:
-
-# a variável soma_de_1_a_30 começa em 0, que definimos fora do for, vai pouco a pouco recebendo o i da vez.
-# conforme o for vai andando dentro do vetor que definimos na linha 11, soma_de_1_a_30 vai ficando maior!
-
 # Outro exemplo:
 
-# Vamos criar um vetor que tenha o atraso médio em cada um dos aeroportos de origem da tabela "voos_em_janeiro.csv"
+# Criar um vetor que tenha o atraso médio em cada um dos aeroportos de origem da tabela "voos_em_janeiro.csv"
 
 # Mas primeiro... Como a gente descobre quais são os aeroportos disponiveis?
+
+# "readr::" serve para poder rodar o comando de uma biblioteca, sem precisar usar library
 
 base_de_dados <- readr::read_csv2("dados/voos_de_janeiro.csv")
 
@@ -55,13 +52,14 @@ for(aeroporto in lista_de_aeroportos){
     
     print(paste0("Calculando a média..."))
     
-    media <- mean(base_filtrada$atraso_saida, na.rm = TRUE)
+    media <- round(mean(base_filtrada$atraso_saida, na.rm = TRUE),2)
     
     print(paste0("A média de atraso dos voos que saíram de ", aeroporto, " é ", media))
     
     print(paste0("Salvando em um vetor..."))
     
     # aqui está o pulo do gato!
+    # concatena o vetor existente com o novo valor a ser inserido
     vetor_de_medias <- c(vetor_de_medias, media)
     
     print(paste0("Vetor ao final do cálculo do aeroporto ", aeroporto, ":"))
@@ -70,10 +68,10 @@ for(aeroporto in lista_de_aeroportos){
 }
 
 # as médias estão chegando no "vetor_de_medias" conforme elas vão sendo
-# calculadas, mas isso é só porque nós acertamos na linha 65.
+# calculadas, mas isso é só porque nós acertamos na linha 63.
 
 # por conta disso, é fácil até criar uma tabela com esses resultados:
-tabela_de_medias_por_aeroporto <- data.frame(
+medias_atraso_por_aeroporto <- data.frame(
     aeroportos = lista_de_aeroportos,
     atraso_medio = vetor_de_medias
 )
@@ -102,14 +100,14 @@ for(aeroporto in lista_de_aeroportos){
     print(paste0("Salvando em um vetor..."))
     
     # aqui está o pulo do gato!
-    vetor_de_medias <- c(media, vetor_de_medias)
+    vetor_de_medias <- c(media, vetor_de_medias) #adiciona o novo valor no começo do vetor
     
     print(paste0("Vetor ao final do cálculo do aeroporto ", aeroporto, ":"))
     print(vetor_de_medias)
     
 }
 
-# agora entrou ao contrário, por causa do jeito que escrevemos na linha 96
+# agora entrou ao contrário, por causa do jeito que escrevemos na linha 103
 # falando nisso, é claro que a gente poderia também simplesmente não gerar esse vetor!
 
 #vetor_de_medias <- NULL
@@ -141,49 +139,34 @@ for(aeroporto in lista_de_aeroportos){
 
 # Exercício
 
-# 1. Calcule as médias de atraso na chegada (a base de dados tem a coluna atraso_chegada também!)
-# para cada um dos destinos e guarde em um vetor "vetor_de_atraso_de_chegada".
-base_de_dados$atraso_chegada
+# 1. Calcule as médias de atraso na chegada para cada um dos destinos 
+#    e guarde em um vetor "vetor_de_atraso_de_chegada".
 
-# a função "unique" tira as duplicações, sobrando só o que a gente quer mesmo:
-unique(base_de_dados$origem)
 
-# vamos guardar esse vetor para ficar mais fácil de usar depois
-lista_de_aeroportos <- unique(base_de_dados$atraso_chegada)
+# a função "unique" tira as repetições, sobrando a lista de destinos:
+lista_de_aeroportos <- unique(base_de_dados$destino)
 
-# vamos iniciar o nosso vetor de médias com NULL, ou seja, VAZIO:
-vetor_de_medias <- NULL
+# Criação do vetor de atraso de chegadas, e iniciar o vetor com NULL
+medias_de_atraso_de_chegada <- NULL
 
 for(aeroporto in lista_de_aeroportos){
+    media_chegada <- round(mean(base_de_dados[base_de_dados$destino==aeroporto,]$atraso_chegada, na.rm = TRUE), 2)
     
-    print(paste0("Calculando média dos voos que saíram de ", aeroporto))
-    
-    print(paste0("Filtrando a base..."))
-    
-    base_filtrada <- base_de_dados[base_de_dados$chegada_prevista == aeroporto, ]
-    
-    print(paste0("Calculando a média..."))
-    
-    media <- mean(base_filtrada$atraso_chegada, na.rm = TRUE)
-    
-    print(paste0("A média de atraso dos voos que saíram de ", aeroporto, " é ", media))
-    
-    print(paste0("Salvando em um vetor..."))
-    
-    # aqui está o pulo do gato!
-    vetor_de_medias <- c(vetor_de_medias, media)
-    
-    print(paste0("Vetor ao final do cálculo do aeroporto ", aeroporto, ":"))
-    print(vetor_de_medias)
-    
+    medias_de_atraso_de_chegada <- c(medias_de_atraso_de_chegada, media_chegada)
 }
-
-# Você pode conseguir uma lista desses destinos fazendo:
-# lista_de_aeroportos_de_destino <- unique(base_de_dados$destino
-
-
 
 
 # 2. Calcule o mínimo o médio e o máximo desse vetor. Quais são os destinos em que os voos chegam com maior atraso?
 # Para te ajudar a visualizar o resultado você poderia organizar os resultados em um data.frame.
 
+# Cálculo do menor e maior valor de atraso de chegada (o menor valor, na verdade é uma chegada adiantada)
+print(paste0("Menor atraso de chegada: ",min(medias_de_atraso_de_chegada)))
+print(paste0("Maior atraso de chegada: ",mean(medias_de_atraso_de_chegada)))
+print(paste0("Maior atraso de chegada: ",max(medias_de_atraso_de_chegada)))
+
+
+# Organização dos dados em Data Frame
+tabela_atraso_de_chegada <- data.frame(
+    aeroporto = lista_de_aeroportos,
+    atrasos_chegada = medias_de_atraso_de_chegada
+)

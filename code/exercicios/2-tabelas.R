@@ -1,24 +1,52 @@
-# Filtro e vetores logicos ------------------------------------------------
+# Escreva a resposta logo abaixo da pergunta.
+# tabelas -------------------------------------------------------------
 
-# 1. use o vetor numeross abaixo para responder as questoes seguintes.
-numeross <- -4:2
-
-# (a) Escreva um código que devolva apenas valores positivos do vetor numeross.
-
-numeross[numeross>0]
-
-# (b) Escreva um código que devolta apenas os valores pares
-#     do vetor numeross.
-#     Dica: o operador %% devolve o resto da divisão entre dois númerospar
-
-resto  <- numeross%%2
-
-# (c) Filtre o vetor para que retorne apenas aqueles valores que quando
-#     elevados a 2 são menores do que 4.
+# 1. Use o data.frame airquality para responder às questões abaixo:
+# (a) quantas colunas airquality tem?
 
 
-# 2. Use o data.frame airquality para responder às questões abaixo
-# (a) conte quantos NAs tem na coluna Solar.R. Dica: use '$', is.na() e sum()
-# (b) filtre a tabela airquality com apenas linhas em que Solar.R é NA.
-# (c) filtre a tabela airquality com apenas linhas em que Solar.R NÃO é NA.
-# (d) filtre a tabela airquality com apenas linhas em que Solar.R NÃO é NA e Month é igual a 5.
+# (b) quantas linhas airquality tem?
+
+
+# (c) o que a função head() retorna?
+
+
+# (d) quais são os nomes das colunas?
+
+
+# (e) qual é a classe da coluna Ozone? Dicas: class() e '$'
+
+
+# (f) o que o código str(airquality) retorna?
+
+
+# (g) utilizando a resposta da (f), quais são os tipos de
+#     cada coluna da tabela airquality?
+
+
+# [desafio] 2. Use o data.frame airquality para responder às questões abaixo:
+airquality <- datasets::airquality # esse pacote faz parte do R base, não é necessário instalar!
+
+
+# Vamos calcular o desvio padrão de Ozone sem usar a função sd().
+# Dica: guarde os resultados de cada item em objetos para poderem ser usados depois.
+# (a) tire a média da coluna Ozone. Dica: use mean(x, na.rm = TRUE).
+
+
+# (b) subtraia da coluna Ozone a sua própria média (centralização).
+
+
+# (c) eleve o vetor ao quadrado.
+
+
+# (d) tire a média do vetor.
+
+
+# (e) tire a raíz quadrada.
+
+
+# (f) compare o resultado com sd(airquality$Ozone)
+
+
+
+

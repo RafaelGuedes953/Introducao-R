@@ -135,7 +135,7 @@ novos_nomes <- tolower(nomes_originais)
 # para os caminhos com nomes corrigidos. 
 fs::file_move(nomes_originais, novos_nomes)
 
-# Exemplo 5: podemos também deletar os arquivos diretamente do R, usando a função
+# Exemplo : podemos também deletar os arquivos diretamente do R, usando a função
 # file_delete()
 
 fs::file_delete("pasta_com_arquivos_baguncados")

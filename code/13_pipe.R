@@ -50,15 +50,23 @@ recipiente(rep("farinha", 2), "água", "fermento", "leite", "óleo") %>%
     esfrie("geladeira", "20min")
 
 # ATALHO DO %>%: CTRL (command) + SHIFT + M
+# And then
 
 
 # Exercício ---------------------------------------------------------------
 
 # 1. Reescreva o código abaixo utilizando o pipe. Na sua opinião, 
 # de que forma é mais facil de ler e entender o que está sendo executado?
-# Com ou sem o pipe? 
+# Com ou sem o pipe?
+
+base_de_dados <- read.csv2("dados/voos_de_janeiro.csv")
 
 round(mean(base_de_dados$atraso_chegada, na.rm = TRUE), 2)
+
+base_de_dados$atraso_chegada %>% 
+    mean(na.rm = TRUE) %>% 
+    round(2)
+
 
 
 

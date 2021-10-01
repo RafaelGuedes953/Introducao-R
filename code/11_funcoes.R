@@ -116,9 +116,28 @@ calculo_imc(peso = 65, altura = 1.75)
 # Atenção: a função source() vai executar todo o código que está no arquivo! 
 # Caso no arquivo tenha variáveis sendo criadas, elas serão carregadas também.
 
-# Ex:
+# Exemplo 1 --------------------------------------------------------------------
 listar_arquivos("exemplos_de_aula/")
 
-source("exemplos_de_aula/exemplo-source.R")
+source("code/exemplo_source.R")
 
-listar_arquivos("exemplos_de_aula/")
+listar_arquivos("code/")
+
+
+# Exemplo 2 --------------------------------------------------------------------
+database <- read.csv2("dados/voos_de_outubro.csv")
+voos <- dados::voos
+
+hora_saida <- !(is.na(database$horario_saida))
+
+calcular_atraso(hora_saida,database$saida_programada)
+calcular_atraso(voos$horario_saida,voos$saida_programada)
+
+
+
+
+
+
+
+
+

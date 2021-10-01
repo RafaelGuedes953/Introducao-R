@@ -270,6 +270,7 @@ for(arquivo in arquivos){
 
 
 # library(stringr) -------------------------------------------------------------
+library(stringr)
 nome_da_variavel <- "String ou number por aqui"
 outra_v <- 22
 str_glue("Variável tem valor igual a {nome_da_variavel}, e número de outra variável é {outra_v}")
